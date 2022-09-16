@@ -1,0 +1,39 @@
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: /api/inventory
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  datasource:
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/inventory}
+    username: ${DATABASE_USERNAME:root}
+    password: ${DATABASE_PASSWORD:root}
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+    mvc:
+      pathmatch:
+        matching-strategy: ant_path_matcher
+
+  main:
+    allow-circular-references: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        stat: debug
+        type: trace
+
+service:
+  mock: false
+
+springdoc:
+  api-docs:
+    path: /api-documentation
+  swagger-ui:
+    path: /documentation

@@ -1,14 +1,12 @@
-# Project Inventory Control API
+# Project Stock Control System API
 
 ---
 
 ### Tecnologias Utilizadas
 
-#### Java 18
-#### Spring Boot
-#### MySQL
-#### Maven
-#### Tomcat
-#### Lombok
-#### Swagger UI
-#### IntelliJ IDEA
+- Java 18
+- Spring Boot
+- PostgreSQL
+- Lombok
+- Swagger UI
+- IntelliJ IDEA

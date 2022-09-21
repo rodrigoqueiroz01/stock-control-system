@@ -11,11 +11,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>inventoryControl</groupId>
-    <artifactId>inventory</artifactId>
+    <groupId>StockControlSystem</groupId>
+    <artifactId>stock</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>inventory</name>
-    <description>inventory</description>
+    <name>stock</name>
+    <description>API-Stock-Control-System</description>
 
     <properties>
         <java.version>18</java.version>
@@ -40,8 +40,8 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
 

@@ -1,13 +1,13 @@
 package stock.control.domain.service;
 
-import stock.control.exception.alreadyregistered.ConveyorAlreadyRegisteredException;
-import stock.control.exception.notfound.ConveyorNotFoundException;
-import stock.control.domain.model.ConveyorModel;
-import stock.control.domain.repository.ConveyorRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import stock.control.domain.model.ConveyorModel;
+import stock.control.domain.repository.ConveyorRepository;
+import stock.control.exception.DataAlreadyRegisteredException;
+import stock.control.exception.DataNotFoundException;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +22,14 @@ public class ConveyorService {
 
     public ConveyorModel save(ConveyorModel conveyorModel) {
         if (!Objects.isNull(conveyorRepository.findByConveyor(conveyorModel.getConveyor()))) {
-            throw new ConveyorAlreadyRegisteredException();
+            throw new DataAlreadyRegisteredException("Conflito: Transportadora já cadastrada na base de dados!");
         }
 
         return conveyorRepository.save(conveyorModel);
     }
 
     public ConveyorModel findById(UUID id) {
-        return conveyorRepository.findById(id).orElseThrow(() -> new ConveyorNotFoundException());
+        return conveyorRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Transportadora não encontrada na base de dados!"));
     }
 
     public Page<ConveyorModel> findAll(Pageable pageable, String conveyor, String address, String district, String zipCode, String cnpj, String contact) {
@@ -71,18 +71,18 @@ public class ConveyorService {
     }
 
     public ConveyorModel update(ConveyorModel conveyorModel, UUID id) {
-        conveyorRepository.findById(id).orElseThrow(() -> new ConveyorNotFoundException());
+        conveyorRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Transportadora não encontrada na base de dados!"));
         conveyorModel.setId(id);
 
         if (!Objects.isNull(conveyorRepository.findByConveyor(conveyorModel.getConveyor()))) {
-            throw new ConveyorAlreadyRegisteredException();
+            throw new DataAlreadyRegisteredException("Conflito: Transportadora já cadastrada na base de dados!");
         }
 
         return conveyorRepository.save(conveyorModel);
     }
 
     public UUID delete(UUID id) {
-        ConveyorModel conveyor = conveyorRepository.findById(id).orElseThrow(() -> new ConveyorNotFoundException());
+        ConveyorModel conveyor = conveyorRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Transportadora não encontrada na base de dados!"));
         conveyorRepository.delete(conveyor);
 
         return id;

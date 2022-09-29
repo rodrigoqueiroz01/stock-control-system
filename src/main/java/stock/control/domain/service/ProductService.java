@@ -1,11 +1,11 @@
 package stock.control.domain.service;
 
-import stock.control.exception.alreadyregistered.ProductAlreadyRegisteredException;
-import stock.control.exception.notfound.ProductNotFoundException;
-import stock.control.domain.model.ProductModel;
-import stock.control.domain.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import stock.control.domain.model.ProductModel;
+import stock.control.domain.repository.ProductRepository;
+import stock.control.exception.DataAlreadyRegisteredException;
+import stock.control.exception.DataNotFoundException;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -18,14 +18,14 @@ public class ProductService {
 
     public ProductModel save(ProductModel productModel) {
         if (!Objects.isNull(productRepository.findByDescription(productModel.getDescription()))) {
-            throw new ProductAlreadyRegisteredException();
+            throw new DataAlreadyRegisteredException("Conflito: Produto já cadastrado na base de dados!");
         }
 
         return productRepository.save(productModel);
     }
 
     public ProductModel findById(UUID id) {
-        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException());
+        return productRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Produto não encontrado na base de dados!"));
     }
 
     public List<ProductModel> findAll() {
@@ -33,18 +33,18 @@ public class ProductService {
     }
 
     public ProductModel update(ProductModel productModel, UUID id) {
-        productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException());
+        productRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Produto não encontrado na base de dados!"));
         productModel.setId(id);
 
         if (!Objects.isNull(productRepository.findByDescription(productModel.getDescription()))) {
-            throw new ProductAlreadyRegisteredException();
+            throw new DataAlreadyRegisteredException("Conflito: Produto já cadastrado na base de dados!");
         }
 
         return productRepository.save(productModel);
     }
 
     public UUID delete(UUID id) {
-        ProductModel product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException());
+        ProductModel product = productRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Produto não encontrado na base de dados!"));
         productRepository.delete(product);
 
         return id;

@@ -1,13 +1,13 @@
 package stock.control.domain.service;
 
-import stock.control.exception.alreadyregistered.ProviderAlreadyRegisteredException;
-import stock.control.exception.notfound.ProviderNotFoundException;
-import stock.control.domain.model.ProviderModel;
-import stock.control.domain.repository.ProviderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import stock.control.domain.model.ProviderModel;
+import stock.control.domain.repository.ProviderRepository;
+import stock.control.exception.DataAlreadyRegisteredException;
+import stock.control.exception.DataNotFoundException;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +22,14 @@ public class ProviderService {
 
     public ProviderModel save(ProviderModel providerModel) {
         if (!Objects.isNull(providerRepository.findByProvider(providerModel.getProvider()))) {
-            throw new ProviderAlreadyRegisteredException();
+            throw new DataAlreadyRegisteredException("Conflito: Fornecedor já cadastrado na base de dados!");
         }
 
         return providerRepository.save(providerModel);
     }
 
     public ProviderModel findById(UUID id) {
-        return providerRepository.findById(id).orElseThrow(() -> new ProviderNotFoundException());
+        return providerRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Fornecedor não encontrado na base de dados!"));
     }
 
     public Page<ProviderModel> findAll(Pageable pageable, String provider, String address, String district, String cep,
@@ -77,18 +77,18 @@ public class ProviderService {
     }
 
     public ProviderModel update(ProviderModel providerModel, UUID id) {
-        providerRepository.findById(id).orElseThrow(() -> new ProviderNotFoundException());
+        providerRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Fornecedor não encontrado na base de dados!"));
         providerModel.setId(id);
 
         if (Objects.isNull(providerRepository.findByProvider(providerModel.getProvider()))) {
-            throw new ProviderAlreadyRegisteredException();
+            throw new DataAlreadyRegisteredException("Conflito: Fornecedor já cadastrado na base de dados!");
         }
 
         return providerRepository.save(providerModel);
     }
 
     public UUID delete(UUID id) {
-        ProviderModel provider = providerRepository.findById(id).orElseThrow(() -> new ProviderNotFoundException());
+        ProviderModel provider = providerRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Fornecedor não encontrado na base de dados!"));
         providerRepository.delete(provider);
 
         return id;

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import stock.control.domain.model.ExitModel;
 import stock.control.domain.repository.ExitRepository;
-import stock.control.exception.notfound.ExitNotFoundException;
+import stock.control.exception.DataNotFoundException;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +19,7 @@ public class ExitService {
     }
 
     public ExitModel findById(UUID id) {
-        return exitRepository.findById(id).orElseThrow(() -> new ExitNotFoundException());
+        return exitRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Saída não encontrada na base de dados!"));
     }
 
     public List<ExitModel> findAll() {
@@ -27,14 +27,14 @@ public class ExitService {
     }
 
     public ExitModel update(ExitModel exitModel, UUID id) {
-        exitRepository.findById(id).orElseThrow(() -> new ExitNotFoundException());
+        exitRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Saída não encontrada na base de dados!"));
         exitModel.setId(id);
 
         return exitRepository.save(exitModel);
     }
 
     public UUID delete(UUID id) {
-        ExitModel exit = exitRepository.findById(id).orElseThrow(() -> new ExitNotFoundException());
+        ExitModel exit = exitRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Saída não encontrada na base de dados!"));
         exitRepository.delete(exit);
 
         return id;

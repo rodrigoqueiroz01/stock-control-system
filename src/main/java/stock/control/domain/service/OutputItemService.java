@@ -1,10 +1,10 @@
 package stock.control.domain.service;
 
-import stock.control.exception.notfound.OutputItemNotFoundException;
-import stock.control.domain.model.OutputItemModel;
-import stock.control.domain.repository.OutputItemRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import stock.control.domain.model.OutputItemModel;
+import stock.control.domain.repository.OutputItemRepository;
+import stock.control.exception.DataNotFoundException;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +19,7 @@ public class OutputItemService {
     }
 
     public OutputItemModel findById(UUID id) {
-        return outputItemRepository.findById(id).orElseThrow(() -> new OutputItemNotFoundException());
+        return outputItemRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Ítem de saída não encontrado na base de dados!"));
     }
 
     public List<OutputItemModel> findAll() {
@@ -27,14 +27,14 @@ public class OutputItemService {
     }
 
     public OutputItemModel update(OutputItemModel outputItemModel, UUID id) {
-        outputItemRepository.findById(id).orElseThrow(() -> new OutputItemNotFoundException());
+        outputItemRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Ítem de saída não encontrado na base de dados!"));
         outputItemModel.setId(id);
 
         return outputItemRepository.save(outputItemModel);
     }
 
     public UUID delete(UUID id) {
-        OutputItemModel outputItem = outputItemRepository.findById(id).orElseThrow(() -> new OutputItemNotFoundException());
+        OutputItemModel outputItem = outputItemRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Ítem de saída não encontrado na base de dados!"));
         outputItemRepository.delete(outputItem);
 
         return id;

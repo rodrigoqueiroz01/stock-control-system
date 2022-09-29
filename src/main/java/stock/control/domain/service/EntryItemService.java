@@ -1,12 +1,12 @@
 package stock.control.domain.service;
 
-import stock.control.exception.notfound.EntryItemNotFoundException;
-import stock.control.domain.model.EntryItemModel;
-import stock.control.domain.repository.EntryItemRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import stock.control.domain.model.EntryItemModel;
+import stock.control.domain.repository.EntryItemRepository;
+import stock.control.exception.DataNotFoundException;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class EntryItemService {
     }
 
     public EntryItemModel findById(UUID id) {
-        return entryItemRepository.findById(id).orElseThrow(() -> new EntryItemNotFoundException());
+        return entryItemRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Ítem de entrada não encontrado na base de dados!"));
     }
 
     public Page<EntryItemModel> findAll(Pageable pageable, String batch) {
@@ -40,14 +40,14 @@ public class EntryItemService {
     }
 
     public EntryItemModel update(EntryItemModel entryItemModel, UUID id) {
-        entryItemRepository.findById(id).orElseThrow(() -> new EntryItemNotFoundException());
+        entryItemRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Ítem de entrada não encontrado na base de dados!"));
         entryItemModel.setId(id);
 
         return entryItemRepository.save(entryItemModel);
     }
 
     public UUID delete(UUID id) {
-        EntryItemModel entryItem = entryItemRepository.findById(id).orElseThrow(() -> new EntryItemNotFoundException());
+        EntryItemModel entryItem = entryItemRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Ítem de entrada não encontrado na base de dados!"));
         entryItemRepository.delete(entryItem);
 
         return id;

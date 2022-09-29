@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import stock.control.domain.model.CategoryModel;
 import stock.control.domain.repository.CategoryRepository;
-import stock.control.exception.alreadyregistered.CategoryAlreadyRegisteredException;
-import stock.control.exception.notfound.CategoryNotFoundException;
+import stock.control.exception.DataAlreadyRegisteredException;
+import stock.control.exception.DataNotFoundException;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -18,14 +18,14 @@ public class CategoryService {
 
     public CategoryModel save(CategoryModel categoryModel) {
         if (!Objects.isNull(categoryRepository.findByName(categoryModel.getName()))) {
-            throw new CategoryAlreadyRegisteredException();
+            throw new DataAlreadyRegisteredException("Conflito: Categoria já cadastrada na base de dados!");
         }
 
         return categoryRepository.save(categoryModel);
     }
 
     public CategoryModel findById(UUID id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException());
+        return categoryRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Categoria não encontrada na base de dados!"));
     }
 
     public List<CategoryModel> findAll() {
@@ -33,18 +33,18 @@ public class CategoryService {
     }
 
     public CategoryModel update(CategoryModel categoryModel, UUID id) {
-        categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException());
+        categoryRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Categoria não encontrada na base de dados!"));
         categoryModel.setId(id);
 
         if (!Objects.isNull(categoryRepository.findByName(categoryModel.getName()))) {
-            throw new CategoryAlreadyRegisteredException();
+            throw new DataAlreadyRegisteredException("Conflito: Já existe categoria com esse nome na base de dados!");
         }
 
         return categoryRepository.save(categoryModel);
     }
 
     public UUID delete(UUID id) {
-        CategoryModel category = categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException());
+        CategoryModel category = categoryRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Categoria não encontrada na base de dados!"));
         categoryRepository.delete(category);
 
         return id;

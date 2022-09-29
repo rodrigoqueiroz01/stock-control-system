@@ -6,8 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import stock.control.domain.model.StoreModel;
 import stock.control.domain.repository.StoreRepository;
-import stock.control.exception.alreadyregistered.StoreAlreadyRegisteredException;
-import stock.control.exception.notfound.StoreNotFoundException;
+import stock.control.exception.DataAlreadyRegisteredException;
+import stock.control.exception.DataNotFoundException;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +22,14 @@ public class StoreService {
 
     public StoreModel save(StoreModel storeModel) {
         if (!Objects.isNull(storeRepository.findByName(storeModel.getName()))) {
-            throw new StoreAlreadyRegisteredException();
+            throw new DataAlreadyRegisteredException("Conflito: Loja já cadastrada na base de dados!");
         }
 
         return storeRepository.save(storeModel);
     }
 
     public StoreModel findById(UUID id) {
-        return storeRepository.findById(id).orElseThrow(() -> new StoreNotFoundException());
+        return storeRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Loja não encontrada na base de dados!"));
     }
 
     public Page<StoreModel> findAll(Pageable pageable, String zipCode, String address, String district) {
@@ -56,11 +56,11 @@ public class StoreService {
     }
 
     public StoreModel update(StoreModel storeModel, UUID id) {
-        storeRepository.findById(id).orElseThrow(() -> new StoreNotFoundException());
+        storeRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Loja não encontrada na base de dados!"));
         storeModel.setId(id);
 
         if (!Objects.isNull(storeRepository.findByName(storeModel.getName()))) {
-            throw new StoreAlreadyRegisteredException();
+            throw new DataAlreadyRegisteredException("Conflito: Loja já cadastrada na base de dados!");
         }
 
         return storeRepository.save(storeModel);
@@ -68,7 +68,7 @@ public class StoreService {
     }
 
     public UUID delete(UUID id) {
-        StoreModel store = storeRepository.findById(id).orElseThrow(() -> new StoreNotFoundException());
+        StoreModel store = storeRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Loja não encontrada na base de dados!"));
         storeRepository.delete(store);
 
         return id;

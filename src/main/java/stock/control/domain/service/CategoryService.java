@@ -37,7 +37,7 @@ public class CategoryService {
         categoryModel.setId(id);
 
         if (!Objects.isNull(categoryRepository.findByName(categoryModel.getName()))) {
-            throw new DataAlreadyRegisteredException("Conflito: Já existe categoria com esse nome na base de dados!");
+            throw new DataAlreadyRegisteredException("Conflito: Categoria já cadastrada na base de dados!");
         }
 
         return categoryRepository.save(categoryModel);

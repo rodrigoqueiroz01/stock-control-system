@@ -14,7 +14,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import stock.control.exception.DataAlreadyRegisteredException;
 import stock.control.exception.DataNotFoundException;
-
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import java.time.OffsetDateTime;

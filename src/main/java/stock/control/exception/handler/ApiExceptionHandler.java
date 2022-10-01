@@ -14,6 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import stock.control.exception.DataAlreadyRegisteredException;
 import stock.control.exception.DataNotFoundException;
+
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import java.time.OffsetDateTime;
@@ -45,8 +46,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                                                              HttpStatus status, WebRequest request) {
         ApiError apiError = ApiError
                 .builder()
-                    .status(status.value())
-                    .title(status.getReasonPhrase())
+                .status(status.value())
+                .title(status.getReasonPhrase())
                 .build();
 
         headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
@@ -60,12 +61,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         var apiError = ApiError
                 .builder()
-                    .dateTime(OffsetDateTime.now())
-                    .status(status.value())
-                    .title(INVALIDATION_MESSAGE)
-                    .type(getErrorDocumentationUrl(request))
-                    .detail("Preencha os dados que são obrigatórios, e respeite o limite/valor máximo dos caracteres.")
-                    .fields(fields)
+                .dateTime(OffsetDateTime.now())
+                .status(status.value())
+                .title(INVALIDATION_MESSAGE)
+                .type(getErrorDocumentationUrl(request))
+                .detail("Preencha os dados que são obrigatórios, e respeite o limite/valor máximo dos caracteres.")
+                .fields(fields)
                 .build();
 
         headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
@@ -79,11 +80,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         var apiError = ApiError
                 .builder()
-                    .dateTime(OffsetDateTime.now())
-                    .status(status.value())
-                    .title("Recurso não encontrado.")
-                    .type(getErrorDocumentationUrl(request))
-                    .detail(ex.getMessage())
+                .dateTime(OffsetDateTime.now())
+                .status(status.value())
+                .title("Recurso não encontrado.")
+                .type(getErrorDocumentationUrl(request))
+                .detail(ex.getMessage())
                 .build();
 
         var headers = new HttpHeaders();
@@ -98,11 +99,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         var apiError = ApiError
                 .builder()
-                    .dateTime(OffsetDateTime.now())
-                    .status(status.value())
-                    .title("Dados já cadastrados.")
-                    .type(getErrorDocumentationUrl(request))
-                    .detail(ex.getMessage())
+                .dateTime(OffsetDateTime.now())
+                .status(status.value())
+                .title("Dados já cadastrados.")
+                .type(getErrorDocumentationUrl(request))
+                .detail(ex.getMessage())
                 .build();
 
         var headers = new HttpHeaders();
@@ -117,11 +118,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         var apiError = ApiError
                 .builder()
-                    .dateTime(OffsetDateTime.now())
-                    .status(status.value())
-                    .title("Dados não encontrados.")
-                    .type(getErrorDocumentationUrl(request))
-                    .detail(ex.getMessage())
+                .dateTime(OffsetDateTime.now())
+                .status(status.value())
+                .title("Dados não encontrados.")
+                .type(getErrorDocumentationUrl(request))
+                .detail(ex.getMessage())
                 .build();
 
         var headers = new HttpHeaders();
@@ -136,9 +137,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         var apiError = ApiError
                 .builder()
-                    .dateTime(OffsetDateTime.now())
-                    .status(status.value())
-                    .title("Violação de integridade de dados.")
+                .dateTime(OffsetDateTime.now())
+                .status(status.value())
+                .title("Violação de integridade de dados.")
                 .build();
 
         var headers = new HttpHeaders();
@@ -153,9 +154,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         var apiError = ApiError
                 .builder()
-                    .dateTime(OffsetDateTime.now())
-                    .status(status.value())
-                    .title(GENERIC_ERROR_MESSAGE)
+                .dateTime(OffsetDateTime.now())
+                .status(status.value())
+                .title(GENERIC_ERROR_MESSAGE)
                 .build();
 
         var headers = new HttpHeaders();
@@ -170,9 +171,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         var apiError = ApiError
                 .builder()
-                    .dateTime(OffsetDateTime.now())
-                    .status(status.value())
-                    .title(GENERIC_ERROR_MESSAGE)
+                .dateTime(OffsetDateTime.now())
+                .status(status.value())
+                .title(GENERIC_ERROR_MESSAGE)
                 .build();
 
         var headers = new HttpHeaders();
@@ -188,8 +189,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .stream()
                 .map(fieldError -> ApiError.Field
                         .builder()
-                            .name(fieldError.getField())
-                            .message(fieldError.getDefaultMessage())
+                        .name(fieldError.getField())
+                        .message(fieldError.getDefaultMessage())
                         .build())
                 .toList();
     }

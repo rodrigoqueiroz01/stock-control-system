@@ -3,6 +3,7 @@ package stock.control.api.dto.request;
 import lombok.Getter;
 import lombok.Setter;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -12,10 +13,10 @@ import java.util.UUID;
 public class ProhibitedRequest {
 
     @NotBlank(message = "Informe a data de solicitação!")
-    private LocalDateTime requestDate;
+    private LocalDate requestDate;
 
     @NotBlank(message = "Informe a data de entrada!")
-    private LocalDateTime entryDate;
+    private LocalDate entryDate;
 
     @NotBlank(message = "Informe o valor!")
     private Double total;
@@ -28,8 +29,5 @@ public class ProhibitedRequest {
 
     @NotBlank(message = "Informe o imposto!")
     private Double tax;
-
-//    @NotBlank(message = "Informe o código da transportadora!")
-//    private List<UUID> codConveyorList;
 
 }

@@ -21,10 +21,4 @@ public class ProductRequest {
     @NotBlank(message = "Informe a quantidade mínima!")
     private Integer minimumAmount;
 
-//    @NotBlank(message = "Informe o código do fornecedor!")
-//    private List<UUID> codProviderList;
-//
-//    @NotBlank(message = "Informe o código da categoria!")
-//    private UUID codCategory;
-
 }

@@ -7,32 +7,15 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-    show-sql: true
 
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/stock}
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/stock}
     username: ${DATABASE_USERNAME:root}
     password: ${DATABASE_PASSWORD:root}
 
   jackson:
     deserialization:
       fail-on-unknown-properties: true
-    mvc:
-      pathmatch:
-        matching-strategy: ant_path_matcher
-
-  main:
-    allow-circular-references: true
-
-logging:
-  level:
-    org:
-      hibernate:
-        stat: debug
-        type: trace
-
-service:
-  mock: false
 
 springdoc:
   api-docs:

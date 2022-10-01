@@ -21,7 +21,7 @@ public class ConveyorService {
     private final ConveyorRepository conveyorRepository;
 
     public ConveyorModel save(ConveyorModel conveyorModel) {
-        if (!Objects.isNull(conveyorRepository.findByConveyor(conveyorModel.getConveyor()))) {
+        if (!Objects.isNull(conveyorRepository.findByConveyor(conveyorModel.getName()))) {
             throw new DataAlreadyRegisteredException("Conflito: Transportadora já cadastrada na base de dados!");
         }
 
@@ -74,7 +74,7 @@ public class ConveyorService {
         conveyorRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Transportadora não encontrada na base de dados!"));
         conveyorModel.setId(id);
 
-        if (!Objects.isNull(conveyorRepository.findByConveyor(conveyorModel.getConveyor()))) {
+        if (!Objects.isNull(conveyorRepository.findByConveyor(conveyorModel.getName()))) {
             throw new DataAlreadyRegisteredException("Conflito: Transportadora já cadastrada na base de dados!");
         }
 

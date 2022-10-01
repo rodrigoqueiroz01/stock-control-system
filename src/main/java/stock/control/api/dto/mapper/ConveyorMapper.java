@@ -1,4 +1,4 @@
-package stock.control.api.mapper;
+package stock.control.api.dto.mapper;
 
 import stock.control.api.dto.request.ConveyorRequest;
 import stock.control.api.dto.response.ConveyorResponse;
@@ -16,33 +16,31 @@ public class ConveyorMapper {
     public static ConveyorModel toModel(ConveyorRequest request) {
         return ConveyorModel
                 .builder()
-                .conveyor(request.getConveyor())
-                .address(request.getAddress())
-                .number(request.getNumber())
-                .district(request.getDistrict())
-                .zipCode(request.getZipCode())
-                .cnpj(request.getCnpj())
-                .subscription(request.getSubscription())
-                .contact(request.getContact())
-                .telephone(request.getTelephone())
-//                .cityModels(CityMapper.toModelList(request.getCodCityList()))
+                    .name(request.getName())
+                    .address(request.getAddress())
+                    .number(request.getNumber())
+                    .district(request.getDistrict())
+                    .zipCode(request.getZipCode())
+                    .cnpj(request.getCnpj())
+                    .subscription(request.getSubscription())
+                    .contact(request.getContact())
+                    .telephone(request.getTelephone())
                 .build();
     }
 
     public static ConveyorResponse toResponse(ConveyorModel conveyorModel) {
         return ConveyorResponse
                 .builder()
-                .id(conveyorModel.getId())
-                .conveyor(conveyorModel.getConveyor())
-                .address(conveyorModel.getAddress())
-                .number(conveyorModel.getNumber())
-                .district(conveyorModel.getDistrict())
-                .zipCode(conveyorModel.getZipCode())
-                .cnpj(conveyorModel.getCnpj())
-                .subscription(conveyorModel.getSubscription())
-                .contact(conveyorModel.getContact())
-                .telephone(conveyorModel.getTelephone())
-//                .cityResponseList(CityMapper.toResponseList(conveyorModel.getCityModels()))
+                    .id(conveyorModel.getId())
+                    .name(conveyorModel.getName())
+                    .address(conveyorModel.getAddress())
+                    .number(conveyorModel.getNumber())
+                    .district(conveyorModel.getDistrict())
+                    .zipCode(conveyorModel.getZipCode())
+                    .cnpj(conveyorModel.getCnpj())
+                    .subscription(conveyorModel.getSubscription())
+                    .contact(conveyorModel.getContact())
+                    .telephone(conveyorModel.getTelephone())
                 .build();
     }
 
@@ -67,7 +65,7 @@ public class ConveyorMapper {
     public static ConveyorModel createConveyor(UUID id) {
         return ConveyorModel
                 .builder()
-                .id(id)
+                    .id(id)
                 .build();
     }
 

@@ -1,4 +1,4 @@
-package stock.control.api.mapper;
+package stock.control.api.dto.mapper;
 
 import stock.control.api.dto.request.ExitRequest;
 import stock.control.api.dto.response.ExitResponse;
@@ -15,22 +15,19 @@ public class ExitMapper {
     public static ExitModel toModel(ExitRequest request) {
         return ExitModel
                 .builder()
-                .total(request.getTotal())
-                .shipping(request.getShipping())
-                .tax(request.getTax())
-//                .conveyorModels(ConveyorMapper.toModelList(request.getCodConveyorList()))
-//                .storeModel(StoreModel.builder().idStore(request.getCodStore()).build())
+                    .total(request.getTotal())
+                    .shipping(request.getShipping())
+                    .tax(request.getTax())
                 .build();
     }
 
     public static ExitResponse toResponse(ExitModel exitModel) {
         return ExitResponse
                 .builder()
-                .id(exitModel.getId())
-                .total(exitModel.getTotal())
-                .shipping(exitModel.getShipping())
-                .tax(exitModel.getTax())
-//                .storeResponse(StoreMapper.toResponse(exitModel.getStoreModel()))
+                    .id(exitModel.getId())
+                    .total(exitModel.getTotal())
+                    .shipping(exitModel.getShipping())
+                    .tax(exitModel.getTax())
                 .build();
     }
 

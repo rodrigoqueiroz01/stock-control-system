@@ -14,28 +14,23 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "output_item", schema = "public")
+@Table(name = "output_item")
 public class OutputItemModel implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
+    @Column(name = "batch")
     private String batch;
 
+    @Column(name = "amount")
     private Integer amount;
 
+    @Column(name = "value")
     private Double value;
-
-//    @ManyToOne
-//    @JoinColumn(name = "id_product_fk")
-//    private ProductModel productModel;
-
-//    @ManyToOne
-//    @JoinColumn(name = "id_exit_fk")
-//    private ExitModel exitModel;
 
 }

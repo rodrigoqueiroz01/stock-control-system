@@ -20,8 +20,4 @@ public class EntryItemResponse {
 
     private Double value;
 
-//    private ProductResponse productResponse;
-
-//    private ProhibitedResponse prohibitedResponse;
-
 }

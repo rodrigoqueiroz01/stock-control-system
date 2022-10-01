@@ -3,7 +3,7 @@ package stock.control.api.controller;
 import org.springframework.http.HttpStatus;
 import stock.control.api.dto.request.ExitRequest;
 import stock.control.api.dto.response.ExitResponse;
-import stock.control.api.mapper.ExitMapper;
+import stock.control.api.dto.mapper.ExitMapper;
 import stock.control.domain.service.ExitService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @RestController

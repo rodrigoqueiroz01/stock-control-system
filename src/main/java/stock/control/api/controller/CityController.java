@@ -3,7 +3,7 @@ package stock.control.api.controller;
 import org.springframework.http.HttpStatus;
 import stock.control.api.dto.request.CityRequest;
 import stock.control.api.dto.response.CityResponse;
-import stock.control.api.mapper.CityMapper;
+import stock.control.api.dto.mapper.CityMapper;
 import stock.control.domain.service.CityService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

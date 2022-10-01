@@ -1,4 +1,4 @@
-package stock.control.api.mapper;
+package stock.control.api.dto.mapper;
 
 import stock.control.api.dto.request.ProhibitedRequest;
 import stock.control.api.dto.response.ProhibitedResponse;
@@ -15,27 +15,25 @@ public class ProhibitedMapper {
     public static ProhibitedModel toModel(ProhibitedRequest request) {
         return ProhibitedModel
                 .builder()
-                .requestDate(request.getRequestDate())
-                .entryDate(request.getEntryDate())
-                .total(request.getTotal())
-                .shipping(request.getShipping())
-                .invoiceNumber(request.getInvoiceNumber())
-                .tax(request.getTax())
-//                .conveyorModels(ConveyorMapper.toModelList(request.getCodConveyorList()))
+                    .requestDate(request.getRequestDate())
+                    .entryDate(request.getEntryDate())
+                    .total(request.getTotal())
+                    .shipping(request.getShipping())
+                    .invoiceNumber(request.getInvoiceNumber())
+                    .tax(request.getTax())
                 .build();
     }
 
     public static ProhibitedResponse toResponse(ProhibitedModel prohibitedModel) {
         return ProhibitedResponse
                 .builder()
-                .id(prohibitedModel.getId())
-                .requestDate(prohibitedModel.getRequestDate())
-                .entryDate(prohibitedModel.getEntryDate())
-                .total(prohibitedModel.getTotal())
-                .shipping(prohibitedModel.getShipping())
-                .invoiceNumber(prohibitedModel.getInvoiceNumber())
-                .tax(prohibitedModel.getTax())
-//                .conveyorResponseList(ConveyorMapper.toResponseList(prohibitedModel.getConveyorModels()))
+                    .id(prohibitedModel.getId())
+                    .requestDate(prohibitedModel.getRequestDate())
+                    .entryDate(prohibitedModel.getEntryDate())
+                    .total(prohibitedModel.getTotal())
+                    .shipping(prohibitedModel.getShipping())
+                    .invoiceNumber(prohibitedModel.getInvoiceNumber())
+                    .tax(prohibitedModel.getTax())
                 .build();
     }
 

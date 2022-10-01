@@ -36,7 +36,4 @@ public class StoreRequest {
     @NotBlank(message = "Informe o CNPJ!")
     private String cnpj;
 
-//    @NotBlank(message = "Informe o código da cidade!")
-//    private List<UUID> codCityList;
-
 }

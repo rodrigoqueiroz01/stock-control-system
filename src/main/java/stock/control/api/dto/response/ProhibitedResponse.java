@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Builder
@@ -16,9 +16,9 @@ public class ProhibitedResponse {
 
     private UUID id;
 
-    private LocalDateTime requestDate;
+    private LocalDate requestDate;
 
-    private LocalDateTime entryDate;
+    private LocalDate entryDate;
 
     private Double total;
 
@@ -27,7 +27,5 @@ public class ProhibitedResponse {
     private Integer invoiceNumber;
 
     private Double tax;
-
-//    private List<ConveyorResponse> conveyorResponseList;
 
 }

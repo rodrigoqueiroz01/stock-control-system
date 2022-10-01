@@ -3,7 +3,7 @@ package stock.control.api.controller;
 import org.springframework.http.HttpStatus;
 import stock.control.api.dto.request.EntryItemRequest;
 import stock.control.api.dto.response.EntryItemResponse;
-import stock.control.api.mapper.EntryItemMapper;
+import stock.control.api.dto.mapper.EntryItemMapper;
 import stock.control.domain.model.EntryItemModel;
 import stock.control.domain.service.EntryItemService;
 import lombok.AllArgsConstructor;

@@ -1,90 +1,210 @@
 package stock.control.exception.handler;
 
-import lombok.AllArgsConstructor;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import stock.control.exception.DataAlreadyRegisteredException;
 import stock.control.exception.DataNotFoundException;
+import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletRequest;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static final String INVALIDATION_MESSAGE = "Um ou mais campos estão inválidos! " +
             "Faça o preenchimento correto e tente novamente.";
 
-    private final MessageSource messageSource;
+    private static final String GENERIC_ERROR_MESSAGE = "Ops! Houve uma falha inesperada no sistema. " +
+            "Tente novamente e, se a falha persistir, entre em contato com o administrador.";
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
                                                                   HttpStatus status, WebRequest request) {
-        List<ApiError.Field> fields = new ArrayList<>();
+        return handleValidationException(ex, headers, status, request);
+    }
 
-        for (ObjectError error : ex.getBindingResult().getAllErrors()) {
-            String name = ((FieldError) error).getField();
-            String message = messageSource.getMessage(error, LocaleContextHolder.getLocale());
+    @Override
+    protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers,
+                                                         HttpStatus status, WebRequest request) {
+        return handleValidationException(ex, headers, status, request);
+    }
 
-            fields.add(new ApiError.Field(name, message));
-        }
+    @Override
+    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
+                                                             HttpStatus status, WebRequest request) {
+        ApiError apiError = ApiError
+                .builder()
+                    .status(status.value())
+                    .title(status.getReasonPhrase())
+                .build();
 
-        var apiError = new ApiError();
-        apiError.setDateTime(OffsetDateTime.now());
-        apiError.setStatus(status.value());
-        apiError.setTitle(INVALIDATION_MESSAGE);
-        apiError.setFields(fields);
+        headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
 
-        return handleExceptionInternal(ex, apiError, headers, status, request);
+        return super.handleExceptionInternal(ex, apiError, headers, status, request);
+    }
+
+    private ResponseEntity<Object> handleValidationException(Exception ex, HttpHeaders headers,
+                                                             HttpStatus status, WebRequest request) {
+        List<ApiError.Field> fields = getFieldsWithError(ex);
+
+        var apiError = ApiError
+                .builder()
+                    .dateTime(OffsetDateTime.now())
+                    .status(status.value())
+                    .title(INVALIDATION_MESSAGE)
+                    .type(getErrorDocumentationUrl(request))
+                    .detail("Preencha os dados que são obrigatórios, e respeite o limite/valor máximo dos caracteres.")
+                    .fields(fields)
+                .build();
+
+        headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
+
+        return super.handleExceptionInternal(ex, apiError, headers, status, request);
+    }
+
+    @ExceptionHandler(NoResultException.class)
+    protected ResponseEntity<Object> handleNoResult(NoResultException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+
+        var apiError = ApiError
+                .builder()
+                    .dateTime(OffsetDateTime.now())
+                    .status(status.value())
+                    .title("Recurso não encontrado.")
+                    .type(getErrorDocumentationUrl(request))
+                    .detail(ex.getMessage())
+                .build();
+
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
+
+        return super.handleExceptionInternal(ex, apiError, headers, status, request);
     }
 
     @ExceptionHandler(DataAlreadyRegisteredException.class)
-    public ResponseEntity<Object> handleDataAlreadyRegistered(DataAlreadyRegisteredException ex, WebRequest request) {
-        HttpStatus status = HttpStatus.FOUND;
+    protected ResponseEntity<Object> handleDataAlreadyRegistered(DataAlreadyRegisteredException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
 
-        var apiError = new ApiError();
-        apiError.setDateTime(OffsetDateTime.now());
-        apiError.setStatus(status.value());
-        apiError.setTitle(ex.getMessage());
+        var apiError = ApiError
+                .builder()
+                    .dateTime(OffsetDateTime.now())
+                    .status(status.value())
+                    .title("Dados já cadastrados.")
+                    .type(getErrorDocumentationUrl(request))
+                    .detail(ex.getMessage())
+                .build();
 
-        return  handleExceptionInternal(ex, apiError, new HttpHeaders(), status, request);
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
+
+        return super.handleExceptionInternal(ex, apiError, headers, status, request);
     }
 
     @ExceptionHandler(DataNotFoundException.class)
-    public ResponseEntity<Object> handleDataNotFound(DataNotFoundException ex, WebRequest request) {
+    protected ResponseEntity<Object> handleDataNotFound(DataNotFoundException ex, WebRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
 
-        var apiError = new ApiError();
-        apiError.setDateTime(OffsetDateTime.now());
-        apiError.setStatus(status.value());
-        apiError.setTitle(ex.getMessage());
+        var apiError = ApiError
+                .builder()
+                    .dateTime(OffsetDateTime.now())
+                    .status(status.value())
+                    .title("Dados não encontrados.")
+                    .type(getErrorDocumentationUrl(request))
+                    .detail(ex.getMessage())
+                .build();
 
-        return handleExceptionInternal(ex, apiError, new HttpHeaders(), status, request);
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
+
+        return super.handleExceptionInternal(ex, apiError, headers, status, request);
     }
 
-    @ExceptionHandler(HttpServerErrorException.InternalServerError.class)
-    public ResponseEntity<Object> handleInternalServerError(HttpServerErrorException.InternalServerError ex, WebRequest request) {
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    protected ResponseEntity<Object> handleDataIntegrityViolation(DataIntegrityViolationException ex, WebRequest request) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 
-        var apiError = new ApiError();
-        apiError.setDateTime(OffsetDateTime.now());
-        apiError.setStatus(status.value());
-        apiError.setTitle(ex.getMessage());
+        var apiError = ApiError
+                .builder()
+                    .dateTime(OffsetDateTime.now())
+                    .status(status.value())
+                    .title("Violação de integridade de dados.")
+                .build();
 
-        return handleExceptionInternal(ex, apiError, new HttpHeaders(), status, request);
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
+
+        return super.handleExceptionInternal(ex, apiError, headers, status, request);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleUncaughtException(Exception ex, WebRequest request) {
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+
+        var apiError = ApiError
+                .builder()
+                    .dateTime(OffsetDateTime.now())
+                    .status(status.value())
+                    .title(GENERIC_ERROR_MESSAGE)
+                .build();
+
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
+
+        return super.handleExceptionInternal(ex, apiError, headers, status, request);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> handleRuntimeException(RuntimeException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+
+        var apiError = ApiError
+                .builder()
+                    .dateTime(OffsetDateTime.now())
+                    .status(status.value())
+                    .title(GENERIC_ERROR_MESSAGE)
+                .build();
+
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
+
+        return super.handleExceptionInternal(ex, apiError, headers, status, request);
+    }
+
+    private List<ApiError.Field> getFieldsWithError(Exception ex) {
+        return ((MethodArgumentNotValidException) ex)
+                .getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(fieldError -> ApiError.Field
+                        .builder()
+                            .name(fieldError.getField())
+                            .message(fieldError.getDefaultMessage())
+                        .build())
+                .toList();
+    }
+
+    private String getErrorDocumentationUrl(WebRequest request) {
+        HttpServletRequest servletRequest = ((ServletWebRequest) request).getRequest();
+
+        var requestUrl = servletRequest.getRequestURL().toString();
+        var requestUri = servletRequest.getRequestURI();
+
+        var contextPath = servletRequest.getContextPath();
+
+        var documentationUri = contextPath + "/documentation";
+
+        return requestUrl.replace(requestUri, documentationUri);
     }
 
 }

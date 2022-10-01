@@ -20,8 +20,4 @@ public class OutputItemResponse {
 
     private Double value;
 
-//    private ProductResponse productResponse;
-//
-//    private ExitResponse exitResponse;
-
 }

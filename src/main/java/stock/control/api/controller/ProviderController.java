@@ -3,7 +3,7 @@ package stock.control.api.controller;
 import org.springframework.http.HttpStatus;
 import stock.control.api.dto.request.ProviderRequest;
 import stock.control.api.dto.response.ProviderResponse;
-import stock.control.api.mapper.ProviderMapper;
+import stock.control.api.dto.mapper.ProviderMapper;
 import stock.control.domain.model.ProviderModel;
 import stock.control.domain.service.ProviderService;
 import lombok.AllArgsConstructor;

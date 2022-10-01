@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -15,40 +14,41 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "provider", schema = "public")
+@Table(name = "provider")
 public class ProviderModel implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
-    @Column(unique = true)
-    private String provider;
+    @Column(name = "name", unique = true)
+    private String name;
 
+    @Column(name = "address")
     private String address;
 
+    @Column(name = "number")
     private Integer number;
 
+    @Column(name = "district")
     private String district;
 
+    @Column(name = "cep")
     private String cep;
 
+    @Column(name = "contact")
     private String contact;
 
+    @Column(name = "cnpj")
     private String cnpj;
 
+    @Column(name = "subscription")
     private String subscription;
 
+    @Column(name = "telephone")
     private String telephone;
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "provider_city", schema = "inventory",
-//            joinColumns = @JoinColumn(name = "id_provider_fk"),
-//            inverseJoinColumns = @JoinColumn(name = "id_city_fk"))
-//    private List<CityModel> cityModels;
 
 }

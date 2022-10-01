@@ -3,7 +3,7 @@ package stock.control.api.controller;
 import org.springframework.http.HttpStatus;
 import stock.control.api.dto.request.ConveyorRequest;
 import stock.control.api.dto.response.ConveyorResponse;
-import stock.control.api.mapper.ConveyorMapper;
+import stock.control.api.dto.mapper.ConveyorMapper;
 import stock.control.domain.model.ConveyorModel;
 import stock.control.domain.service.ConveyorService;
 import lombok.AllArgsConstructor;

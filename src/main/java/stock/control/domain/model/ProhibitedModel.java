@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Builder
@@ -16,34 +15,32 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "prohibited", schema = "public")
+@Table(name = "prohibited")
 public class ProhibitedModel implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
-    private LocalDateTime requestDate;
+    @Column(name = "request_date")
+    private LocalDate requestDate;
 
-    private LocalDateTime entryDate;
+    @Column(name = "entry_date")
+    private LocalDate entryDate;
 
+    @Column(name = "total")
     private Double total;
 
+    @Column(name = "shipping")
     private Double shipping;
 
     @Column(name = "invoice_number")
     private Integer invoiceNumber;
 
+    @Column(name = "tax")
     private Double tax;
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "prohibited_conveyor", schema = "inventory",
-//            joinColumns = @JoinColumn(name = "id_prohibited_fk"),
-//            inverseJoinColumns = @JoinColumn(name = "id_conveyor_fk"))
-//    private List<ConveyorModel> conveyorModels;
 
 }

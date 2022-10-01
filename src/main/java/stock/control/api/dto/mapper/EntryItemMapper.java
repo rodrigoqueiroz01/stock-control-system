@@ -1,4 +1,4 @@
-package stock.control.api.mapper;
+package stock.control.api.dto.mapper;
 
 import stock.control.api.dto.request.EntryItemRequest;
 import stock.control.api.dto.response.EntryItemResponse;
@@ -15,23 +15,19 @@ public class EntryItemMapper {
     public static EntryItemModel toModel(EntryItemRequest request) {
         return EntryItemModel
                 .builder()
-                .batch(request.getBatch())
-                .amount(request.getAmount())
-                .value(request.getValue())
-//                .productModel(ProductModel.builder().idProduct(request.getCodProduct()).build())
-//                .prohibitedModel(ProhibitedModel.builder().idProhibited(request.getCodProhibited()).build())
+                    .batch(request.getBatch())
+                    .amount(request.getAmount())
+                    .value(request.getValue())
                 .build();
     }
 
     public static EntryItemResponse toResponse(EntryItemModel entryItemModel) {
         return EntryItemResponse
                 .builder()
-                .id(entryItemModel.getId())
-                .batch(entryItemModel.getBatch())
-                .amount(entryItemModel.getAmount())
-                .value(entryItemModel.getValue())
-//                .productResponse(ProductMapper.toResponse(entryItemModel.getProductModel()))
-//                .prohibitedResponse(ProhibitedMapper.toResponse(entryItemModel.getProhibitedModel()))
+                    .id(entryItemModel.getId())
+                    .batch(entryItemModel.getBatch())
+                    .amount(entryItemModel.getAmount())
+                    .value(entryItemModel.getValue())
                 .build();
     }
 

@@ -18,10 +18,4 @@ public class EntryItemRequest {
     @NotBlank(message = "Informe o valor!")
     private Double value;
 
-//    @NotBlank(message = "Informe o código do produto!")
-//    private UUID codProduct;
-
-//    @NotBlank(message = "Informe o código de entrada!")
-//    private UUID codProhibited;
-
 }

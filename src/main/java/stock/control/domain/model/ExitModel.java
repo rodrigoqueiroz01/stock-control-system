@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -15,31 +14,23 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "exit", schema = "public")
+@Table(name = "exit")
 public class ExitModel implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
+    @Column(name = "total")
     private Double total;
 
+    @Column(name = "shipping")
     private Double shipping;
 
+    @Column(name = "tax")
     private Double tax;
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "exit_conveyor", schema = "inventory",
-//            joinColumns = @JoinColumn(name = "id_exit_fk"),
-//            inverseJoinColumns = @JoinColumn(name = "id_conveyor_fk"))
-//    private List<ConveyorModel> conveyorModels;
-
-//    @ManyToOne
-//    @JoinColumn(name = "id_store")
-//    private StoreModel storeModel;
 
 }

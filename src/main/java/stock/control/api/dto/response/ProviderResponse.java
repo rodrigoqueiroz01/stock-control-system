@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.UUID;
 
 @Builder
@@ -15,7 +14,7 @@ public class ProviderResponse {
 
     private UUID id;
 
-    private String provider;
+    private String name;
 
     private String address;
 
@@ -32,7 +31,5 @@ public class ProviderResponse {
     private String subscription;
 
     private String telephone;
-
-//    private List<CityResponse> cityResponseList;
 
 }

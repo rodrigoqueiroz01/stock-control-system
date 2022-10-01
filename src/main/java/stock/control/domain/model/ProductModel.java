@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -15,34 +14,26 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "product", schema = "public")
+@Table(name = "product")
 public class ProductModel implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
-    @Column(unique = true)
+    @Column(name = "description", unique = true)
     private String description;
 
+    @Column(name = "weight")
     private Double weight;
 
+    @Column(name = "controlled")
     private Boolean controlled;
 
+    @Column(name = "minimum_amount")
     private Integer minimumAmount;
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "product_provider", schema = "inventory",
-//            joinColumns = @JoinColumn(name = "id_product_fk"),
-//            inverseJoinColumns = @JoinColumn(name = "id_provider_fk"))
-//    private List<ProviderModel> providerModels;
-
-//    @ManyToOne
-//    @JoinColumn(name = "id_category_fk")
-//    private CategoryModel categoryModel;
 
 }

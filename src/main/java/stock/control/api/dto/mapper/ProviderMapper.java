@@ -1,4 +1,4 @@
-package stock.control.api.mapper;
+package stock.control.api.dto.mapper;
 
 import stock.control.api.dto.request.ProviderRequest;
 import stock.control.api.dto.response.ProviderResponse;
@@ -16,33 +16,31 @@ public class ProviderMapper {
     public static ProviderModel toModel(ProviderRequest request) {
         return ProviderModel
                 .builder()
-                .provider(request.getProvider())
-                .address(request.getAddress())
-                .number(request.getNumber())
-                .district(request.getDistrict())
-                .cep(request.getCep())
-                .contact(request.getContact())
-                .cnpj(request.getCnpj())
-                .subscription(request.getSubscription())
-                .telephone(request.getTelephone())
-//                .cityModels(CityMapper.toModelList(request.getCodCityList()))
+                    .name(request.getProvider())
+                    .address(request.getAddress())
+                    .number(request.getNumber())
+                    .district(request.getDistrict())
+                    .cep(request.getCep())
+                    .contact(request.getContact())
+                    .cnpj(request.getCnpj())
+                    .subscription(request.getSubscription())
+                    .telephone(request.getTelephone())
                 .build();
     }
 
     public static ProviderResponse toResponse(ProviderModel providerModel) {
         return ProviderResponse
                 .builder()
-                .id(providerModel.getId())
-                .provider(providerModel.getProvider())
-                .address(providerModel.getAddress())
-                .number(providerModel.getNumber())
-                .district(providerModel.getDistrict())
-                .cep(providerModel.getCep())
-                .contact(providerModel.getContact())
-                .cnpj(providerModel.getCnpj())
-                .subscription(providerModel.getSubscription())
-                .telephone(providerModel.getTelephone())
-//                .cityResponseList(CityMapper.toResponseList(providerModel.getCityModels()))
+                    .id(providerModel.getId())
+                    .name(providerModel.getName())
+                    .address(providerModel.getAddress())
+                    .number(providerModel.getNumber())
+                    .district(providerModel.getDistrict())
+                    .cep(providerModel.getCep())
+                    .contact(providerModel.getContact())
+                    .cnpj(providerModel.getCnpj())
+                    .subscription(providerModel.getSubscription())
+                    .telephone(providerModel.getTelephone())
                 .build();
     }
 
@@ -67,7 +65,7 @@ public class ProviderMapper {
     public static ProviderModel createProvider(UUID id) {
         return ProviderModel
                 .builder()
-                .id(id)
+                    .id(id)
                 .build();
     }
 

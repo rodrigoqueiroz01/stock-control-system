@@ -1,4 +1,4 @@
-package stock.control.api.mapper;
+package stock.control.api.dto.mapper;
 
 import stock.control.api.dto.response.CategoryResponse;
 import stock.control.api.dto.request.CategoryRequest;
@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import static java.util.Objects.isNull;
 
 @Component
@@ -16,15 +15,15 @@ public class CategoryMapper {
     public static CategoryModel toModel(CategoryRequest categoryRequest) {
         return CategoryModel
                 .builder()
-                .name(categoryRequest.getName())
+                    .name(categoryRequest.getName())
                 .build();
     }
 
     public static CategoryResponse toResponse(CategoryModel categoryModel) {
         return CategoryResponse
                 .builder()
-                .id(categoryModel.getId())
-                .name(categoryModel.getName())
+                    .id(categoryModel.getId())
+                    .name(categoryModel.getName())
                 .build();
     }
 

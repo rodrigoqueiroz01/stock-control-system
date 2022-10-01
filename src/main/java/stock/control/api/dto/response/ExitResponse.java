@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.UUID;
 
 @Builder
@@ -20,9 +19,5 @@ public class ExitResponse {
     private Double shipping;
 
     private Double tax;
-
-//    private List<ConveyorResponse> conveyorResponseList;
-//
-//    private StoreResponse storeResponse;
 
 }

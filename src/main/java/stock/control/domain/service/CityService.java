@@ -17,7 +17,7 @@ public class CityService {
     private final CityRepository cityRepository;
 
     public CityModel save(CityModel cityModel) {
-        if (!Objects.isNull(cityRepository.findByCity(cityModel.getCity()))) {
+        if (!Objects.isNull(cityRepository.findByCity(cityModel.getName()))) {
             throw new DataAlreadyRegisteredException("Conflito: Cidade já cadastrada na base de dados!");
         }
 
@@ -36,7 +36,7 @@ public class CityService {
         cityRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Cidade não encontrada na base de dados!"));
         cityModel.setId(id);
 
-        if (!Objects.isNull(cityRepository.findByCity(cityModel.getCity()))) {
+        if (!Objects.isNull(cityRepository.findByCity(cityModel.getName()))) {
             throw new DataAlreadyRegisteredException("Conflito: Cidade já cadastrada na base de dados!");
         }
 

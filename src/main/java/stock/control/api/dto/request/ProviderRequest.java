@@ -3,10 +3,7 @@ package stock.control.api.dto.request;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CNPJ;
-
 import javax.validation.constraints.NotBlank;
-import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -39,9 +36,5 @@ public class ProviderRequest {
 
     @NotBlank(message = "Informe o telefone!")
     private String telephone;
-
-//    @NotBlank(message = "Informe o código da cidade!")
-//    private List<UUID> codCityList;
-
 
 }

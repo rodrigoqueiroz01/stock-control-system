@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
@@ -15,20 +14,20 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "city", schema = "public")
+@Table(name = "city")
 public class CityModel implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
-    @Column(unique = true)
-    private String city;
+    @Column(name = "name", unique = true)
+    private String name;
 
-    @Size(max = 2)
+    @Column(name = "uf")
     private String uf;
 
 }

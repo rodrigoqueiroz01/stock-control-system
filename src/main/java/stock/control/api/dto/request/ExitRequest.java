@@ -19,10 +19,4 @@ public class ExitRequest {
     @NotBlank(message = "Informe o valor do imposto!")
     private Double tax;
 
-//    @NotBlank(message = "Informe o código da transportadora!")
-//    private List<UUID> codConveyorList;
-//
-//    @NotBlank(message = "Informe o código da loja!")
-//    private UUID codStore;
-
 }

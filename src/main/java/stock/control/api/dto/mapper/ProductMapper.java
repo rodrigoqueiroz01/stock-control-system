@@ -1,4 +1,4 @@
-package stock.control.api.mapper;
+package stock.control.api.dto.mapper;
 
 import stock.control.api.dto.request.ProductRequest;
 import stock.control.api.dto.response.ProductResponse;
@@ -13,25 +13,21 @@ public class ProductMapper {
     public static ProductModel toModel(ProductRequest request) {
         return ProductModel
                 .builder()
-                .description(request.getDescription())
-                .weight(request.getWeight())
-                .controlled(request.getControlled())
-                .minimumAmount(request.getMinimumAmount())
-//                .providerModels(ProviderMapper.toModelList(request.getCodProviderList()))
-//                .categoryModel(CategoryModel.builder().idCategory(request.getCodCategory()).build())
+                    .description(request.getDescription())
+                    .weight(request.getWeight())
+                    .controlled(request.getControlled())
+                    .minimumAmount(request.getMinimumAmount())
                 .build();
     }
 
     public static ProductResponse toResponse(ProductModel productModel) {
         return ProductResponse
                 .builder()
-                .id(productModel.getId())
-                .description(productModel.getDescription())
-                .weight(productModel.getWeight())
-                .controlled(productModel.getControlled())
-                .minimumAmount(productModel.getMinimumAmount())
-//                .providerResponseList(ProviderMapper.toResponseList(productModel.getProviderModels()))
-//                .nameCategory(productModel.getCategoryModel().getName())
+                    .id(productModel.getId())
+                    .description(productModel.getDescription())
+                    .weight(productModel.getWeight())
+                    .controlled(productModel.getControlled())
+                    .minimumAmount(productModel.getMinimumAmount())
                 .build();
     }
 

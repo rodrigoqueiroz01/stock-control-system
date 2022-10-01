@@ -21,7 +21,7 @@ public class ProviderService {
     private final ProviderRepository providerRepository;
 
     public ProviderModel save(ProviderModel providerModel) {
-        if (!Objects.isNull(providerRepository.findByProvider(providerModel.getProvider()))) {
+        if (!Objects.isNull(providerRepository.findByProvider(providerModel.getName()))) {
             throw new DataAlreadyRegisteredException("Conflito: Fornecedor já cadastrado na base de dados!");
         }
 
@@ -80,7 +80,7 @@ public class ProviderService {
         providerRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Conflito: Fornecedor não encontrado na base de dados!"));
         providerModel.setId(id);
 
-        if (Objects.isNull(providerRepository.findByProvider(providerModel.getProvider()))) {
+        if (Objects.isNull(providerRepository.findByProvider(providerModel.getName()))) {
             throw new DataAlreadyRegisteredException("Conflito: Fornecedor já cadastrado na base de dados!");
         }
 

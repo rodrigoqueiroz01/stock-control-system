@@ -1,4 +1,4 @@
-package stock.control.api.mapper;
+package stock.control.api.dto.mapper;
 
 import stock.control.api.dto.request.CityRequest;
 import stock.control.api.dto.response.CityResponse;
@@ -16,17 +16,17 @@ public class CityMapper {
     public static CityModel toModel(CityRequest request) {
         return CityModel
                 .builder()
-                .city(request.getCity())
-                .uf(request.getUf())
+                    .name(request.getName())
+                    .uf(request.getUf())
                 .build();
     }
 
     public static CityResponse toResponse(CityModel cityModel) {
         return CityResponse
                 .builder()
-                .id(cityModel.getId())
-                .city(cityModel.getCity())
-                .uf(cityModel.getUf())
+                    .id(cityModel.getId())
+                    .name(cityModel.getName())
+                    .uf(cityModel.getUf())
                 .build();
     }
 
@@ -51,7 +51,7 @@ public class CityMapper {
     public static CityModel createCity(UUID id) {
         return CityModel
                 .builder()
-                .id(id)
+                  .id(id)
                 .build();
     }
 

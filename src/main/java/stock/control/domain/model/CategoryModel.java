@@ -14,17 +14,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "category", schema = "public")
+@Table(name = "category")
 public class CategoryModel implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
-    @Column(unique = true)
+    @Column(name = "name", unique = true)
     private String name;
 
 }

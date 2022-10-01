@@ -3,7 +3,7 @@ package stock.control.api.controller;
 import org.springframework.http.HttpStatus;
 import stock.control.api.dto.request.ProhibitedRequest;
 import stock.control.api.dto.response.ProhibitedResponse;
-import stock.control.api.mapper.ProhibitedMapper;
+import stock.control.api.dto.mapper.ProhibitedMapper;
 import stock.control.domain.service.ProhibitedService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

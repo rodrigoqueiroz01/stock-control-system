@@ -1,4 +1,4 @@
-package com.github.dev.inventory.entity.model;
+package com.github.dev.inventory.model;
 
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;

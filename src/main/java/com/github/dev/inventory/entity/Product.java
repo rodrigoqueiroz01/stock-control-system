@@ -1,6 +1,6 @@
 package com.github.dev.inventory.entity;
 
-import com.github.dev.inventory.entity.model.Category;
+import com.github.dev.inventory.model.Category;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

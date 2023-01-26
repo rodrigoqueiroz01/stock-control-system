@@ -1,6 +1,6 @@
 package com.github.dev.inventory.entity;
 
-import com.github.dev.inventory.entity.model.Price;
+import com.github.dev.inventory.model.Price;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

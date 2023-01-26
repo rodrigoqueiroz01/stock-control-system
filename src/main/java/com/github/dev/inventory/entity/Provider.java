@@ -1,7 +1,7 @@
 package com.github.dev.inventory.entity;
 
-import com.github.dev.inventory.entity.model.Address;
-import com.github.dev.inventory.entity.model.CorporateData;
+import com.github.dev.inventory.model.Address;
+import com.github.dev.inventory.model.CorporateData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

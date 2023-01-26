@@ -1,4 +1,4 @@
-package com.github.dev.inventory.entity.enums;
+package com.github.dev.inventory.model.enums;
 
 public enum CategoryType {
 
@@ -20,6 +20,6 @@ public enum CategoryType {
     BOOKS,
     STATIONERY_AND_OFFICE,
     PET_SHOP,
-    CLOTHES_SHOES_AND_ACCESSORIES,
+    CLOTHES_SHOES_AND_ACCESSORIES;
 
 }

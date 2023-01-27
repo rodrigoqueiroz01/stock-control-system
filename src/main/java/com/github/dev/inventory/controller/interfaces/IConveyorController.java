@@ -74,7 +74,7 @@ public interface IConveyorController {
                                               "timestamp": "2023-01-27 15:49:56",
                                               "error": "Bad Request",
                                               "status": 400,
-                                              "details": "Short description of the problem."
+                                              "detail": "Short description of the problem."
                                             }
                                             """
                             )
@@ -167,7 +167,7 @@ public interface IConveyorController {
                                               "timestamp": "2023-01-27 15:49:56",
                                               "error": "Bad Request",
                                               "status": 400,
-                                              "details": "Short description of the problem."
+                                              "detail": "Short description of the problem."
                                             }
                                             """
                             )
@@ -229,7 +229,7 @@ public interface IConveyorController {
                                               "timestamp": "2023-01-27 15:49:56",
                                               "error": "Bad Request",
                                               "status": 400,
-                                              "details": "Short description of the problem."
+                                              "detail": "Short description of the problem."
                                             }
                                             """
                             )
@@ -246,7 +246,7 @@ public interface IConveyorController {
                                               "timestamp": "2023-01-27 15:49:56",
                                               "error": "Not Found",
                                               "status": 404,
-                                              "details": "Short description of the problem."
+                                              "detail": "Short description of the problem."
                                             }
                                             """
                             )
@@ -304,7 +304,7 @@ public interface IConveyorController {
                                               "timestamp": "2023-01-27 15:49:56",
                                               "error": "Bad Request",
                                               "status": 400,
-                                              "details": "Short description of the problem."
+                                              "detail": "Short description of the problem."
                                             }
                                             """
                             )
@@ -321,7 +321,7 @@ public interface IConveyorController {
                                               "timestamp": "2023-01-27 15:49:56",
                                               "error": "Not Found",
                                               "status": 404,
-                                              "details": "Short description of the problem."
+                                              "detail": "Short description of the problem."
                                             }
                                             """
                             )
@@ -356,7 +356,7 @@ public interface IConveyorController {
                                               "timestamp": "2023-01-27 15:49:56",
                                               "error": "Bad Request",
                                               "status": 400,
-                                              "details": "Short description of the problem."
+                                              "detail": "Short description of the problem."
                                             }
                                             """
                             )
@@ -373,7 +373,7 @@ public interface IConveyorController {
                                               "timestamp": "2023-01-27 15:49:56",
                                               "error": "Not Found",
                                               "status": 404,
-                                              "details": "Short description of the problem."
+                                              "detail": "Short description of the problem."
                                             }
                                             """
                             )

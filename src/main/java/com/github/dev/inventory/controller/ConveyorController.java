@@ -24,7 +24,7 @@ public class ConveyorController implements IConveyorController {
     private final ConveyorService conveyorService;
 
     @PostMapping
-    public ResponseEntity<Conveyor> save(@RequestBody @Valid final Conveyor conveyor) throws Exception {
+    public ResponseEntity<Conveyor> save(@Valid @RequestBody final Conveyor conveyor) throws Exception {
         log.info("POST /v1/conveyor " + conveyor.getNameConveyor());
         return ResponseEntity.ok().body(conveyorService.save(conveyor));
     }
@@ -47,16 +47,16 @@ public class ConveyorController implements IConveyorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Conveyor> update(@RequestBody @Valid final Conveyor conveyor, @PathVariable UUID id) throws Exception {
+    public ResponseEntity<Conveyor> update(@Valid @RequestBody final Conveyor conveyor, @PathVariable UUID id) throws Exception {
         log.info("PUT /v1/conveyor/update");
         return ResponseEntity.ok().body(conveyorService.update(conveyor, id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable UUID id) throws Exception {
+    public ResponseEntity<Object> deleteById(@PathVariable UUID id) throws Exception {
         log.info("DELETE /v1/conveyor/" + id);
-        var code = String.valueOf(conveyorService.delete(id));
-        return ResponseEntity.ok().body("Record " + code + " deleted from database.");
+        var code = String.valueOf(conveyorService.deleteById(id));
+        return ResponseEntity.ok("Record " + code + " deleted from database.");
     }
 
 }

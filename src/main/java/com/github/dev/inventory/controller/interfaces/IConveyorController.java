@@ -382,6 +382,6 @@ public interface IConveyorController {
 
     })
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Object> delete(@PathVariable UUID id) throws Exception;
+    ResponseEntity<Object> deleteById(@PathVariable UUID id) throws Exception;
 
 }

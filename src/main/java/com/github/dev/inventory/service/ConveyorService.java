@@ -22,7 +22,7 @@ public class ConveyorService {
 
     public Conveyor save(Conveyor conveyor) {
         if (!Objects.isNull(conveyorRepository.findByNameConveyor(conveyor.getNameConveyor()))) {
-            throw new DataAlreadyRegisteredException("Conveyor already registered in the database.");
+            throw new DataAlreadyRegisteredException("Conveyor already registered in the system.");
         }
 
         return conveyorRepository.save(conveyor);
@@ -62,17 +62,17 @@ public class ConveyorService {
     }
 
     public Conveyor findById(UUID id) {
-        return conveyorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No records found for this code in the system database!"));
+        return conveyorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No records found for this code in the system."));
     }
 
     public Conveyor update(Conveyor conveyor, UUID id) {
-        conveyorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No records found for this code in the system database!"));
+        findById(id);
         conveyor.setId(id);
-        return conveyorRepository.save(conveyor);
+        return save(conveyor);
     }
 
-    public Object delete(UUID id) {
-        var conveyor = conveyorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No records found for this code in the system database!"));
+    public Object deleteById(UUID id) {
+        var conveyor = findById(id);
         conveyorRepository.deleteById(conveyor.getId());
         return String.valueOf(conveyor.getId());
     }

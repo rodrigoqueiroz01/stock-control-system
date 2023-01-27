@@ -18,18 +18,18 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ConveyorService {
 
-    private final ConveyorRepository repository;
+    private final ConveyorRepository conveyorRepository;
 
     public Conveyor save(Conveyor conveyor) {
-        if (!Objects.isNull(repository.findByNameConveyor(conveyor.getNameConveyor()))) {
+        if (!Objects.isNull(conveyorRepository.findByNameConveyor(conveyor.getNameConveyor()))) {
             throw new DataAlreadyRegisteredException("Conveyor already registered in the database.");
         }
 
-        return repository.save(conveyor);
+        return conveyorRepository.save(conveyor);
     }
 
     public List<Conveyor> findAll(String nameConveyor, Address address) {
-        return repository.findAll(((root, query, builder) -> {
+        return conveyorRepository.findAll(((root, query, builder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
             if (nameConveyor != null && !nameConveyor.isEmpty()) {
@@ -62,18 +62,18 @@ public class ConveyorService {
     }
 
     public Conveyor findById(UUID id) {
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("No records found for this code in the system database!"));
+        return conveyorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No records found for this code in the system database!"));
     }
 
     public Conveyor update(Conveyor conveyor, UUID id) {
-        repository.findById(id).orElseThrow(() -> new EntityNotFoundException("No records found for this code in the system database!"));
+        conveyorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No records found for this code in the system database!"));
         conveyor.setId(id);
-        return repository.save(conveyor);
+        return conveyorRepository.save(conveyor);
     }
 
     public Object delete(UUID id) {
-        var conveyor = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("No records found for this code in the system database!"));
-        repository.deleteById(conveyor.getId());
+        var conveyor = conveyorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No records found for this code in the system database!"));
+        conveyorRepository.deleteById(conveyor.getId());
         return String.valueOf(conveyor.getId());
     }
 

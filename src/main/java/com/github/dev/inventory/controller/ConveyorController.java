@@ -1,5 +1,6 @@
 package com.github.dev.inventory.controller;
 
+import com.github.dev.inventory.controller.interfaces.IConveyorController;
 import com.github.dev.inventory.entity.Conveyor;
 import com.github.dev.inventory.model.Address;
 import com.github.dev.inventory.service.ConveyorService;
@@ -17,13 +18,13 @@ import java.util.UUID;
 @Validated
 @RestController
 @AllArgsConstructor
-@RequestMapping("/v1/conveyor")
-public class ConveyorController {
+@RequestMapping("/v1/conveyors")
+public class ConveyorController implements IConveyorController {
 
     private final ConveyorService conveyorService;
 
     @PostMapping
-    public ResponseEntity<Conveyor> save(@RequestBody @Valid final Conveyor conveyor) {
+    public ResponseEntity<Conveyor> save(@RequestBody @Valid final Conveyor conveyor) throws Exception {
         log.info("POST /v1/conveyor " + conveyor.getNameConveyor());
         return ResponseEntity.ok().body(conveyorService.save(conveyor));
     }
@@ -33,26 +34,26 @@ public class ConveyorController {
                                                   @RequestParam(name = "country", required = false) String country,
                                                   @RequestParam(name = "state", required = false) String state,
                                                   @RequestParam(name = "city", required = false) String city,
-                                                  @RequestParam(name = "district", required = false) String district) {
+                                                  @RequestParam(name = "district", required = false) String district) throws Exception {
         log.info("GET /v1/conveyor/all");
         var list = conveyorService.findAll(nameConveyor, new Address());
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Conveyor> findById(@PathVariable UUID id) {
+    public ResponseEntity<Conveyor> findById(@PathVariable UUID id) throws Exception {
         log.info("GET /v1/conveyor/" + id);
         return ResponseEntity.ok().body(conveyorService.findById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Conveyor> update(@RequestBody @Valid final Conveyor conveyor, @PathVariable UUID id) {
+    public ResponseEntity<Conveyor> update(@RequestBody @Valid final Conveyor conveyor, @PathVariable UUID id) throws Exception {
         log.info("PUT /v1/conveyor/update");
         return ResponseEntity.ok().body(conveyorService.update(conveyor, id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable UUID id) {
+    public ResponseEntity<Object> delete(@PathVariable UUID id) throws Exception {
         log.info("DELETE /v1/conveyor/" + id);
         var code = String.valueOf(conveyorService.delete(id));
         return ResponseEntity.ok().body("Record " + code + " deleted from database.");

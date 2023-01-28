@@ -13,18 +13,18 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EntryService {
 
-    private final EntryRepository repository;
+    private final EntryRepository entryRepository;
 
     public Entry save(Entry entry) {
-        return repository.save(entry);
+        return entryRepository.save(entry);
     }
 
     public List<Entry> findAll() {
-        return repository.findAll();
+        return entryRepository.findAll();
     }
 
     public Entry findById(UUID id) {
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("No records found for this code in the system."));
+        return entryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No records found for this code in the system."));
     }
 
     public Entry update(Entry entry, UUID id) {
@@ -33,9 +33,9 @@ public class EntryService {
         return save(entry);
     }
 
-    public Object delete(UUID id) {
+    public Object deleteById(UUID id) {
         var entry = findById(id);
-        repository.deleteById(entry.getId());
+        entryRepository.deleteById(entry.getId());
         return String.valueOf(entry.getId());
     }
 

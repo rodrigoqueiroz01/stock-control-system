@@ -7,6 +7,7 @@ import com.github.dev.inventory.service.ConveyorService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class ConveyorController implements IConveyorController {
     @PostMapping
     public ResponseEntity<Conveyor> save(@Valid @RequestBody final Conveyor conveyor) throws Exception {
         log.info("POST /v1/conveyor " + conveyor.getNameConveyor());
-        return ResponseEntity.ok().body(conveyorService.save(conveyor));
+        return ResponseEntity.status(HttpStatus.CREATED).body(conveyorService.save(conveyor));
     }
 
     @GetMapping("/all")

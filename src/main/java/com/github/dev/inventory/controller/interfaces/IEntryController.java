@@ -404,7 +404,7 @@ public interface IEntryController {
             )
     })
     @PutMapping("/{id}")
-    ResponseEntity<Entry> update(Entry entry, UUID id);
+    ResponseEntity<Entry> update(Entry entry, UUID id) throws Exception;
 
     @Operation(summary = "Delete a entry by id.")
     @ApiResponses(value = {
@@ -456,6 +456,6 @@ public interface IEntryController {
             )
     })
     @DeleteMapping("{id}")
-    ResponseEntity<Object> deleteById(UUID id);
+    ResponseEntity<Object> deleteById(UUID id) throws Exception;
 
 }

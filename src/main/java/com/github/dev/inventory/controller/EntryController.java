@@ -41,13 +41,13 @@ public class EntryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Entry> update(Entry entry, UUID id) {
+    public ResponseEntity<Entry> update(Entry entry, UUID id) throws Exception {
         log.info("PUT /v1/entry/" + id);
         return ResponseEntity.ok().body(entryService.update(entry, id));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Object> deleteById(UUID id) {
+    public ResponseEntity<Object> deleteById(UUID id) throws Exception {
         log.info("DELETE /v1/entry/" + id);
         var code = entryService.deleteById(id);
         return ResponseEntity.accepted().body("Record " + code + " deleted from system.");

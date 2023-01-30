@@ -57,7 +57,7 @@ public class ConveyorController implements IConveyorController {
     public ResponseEntity<Object> deleteById(@PathVariable UUID id) throws Exception {
         log.info("DELETE /v1/conveyor/" + id);
         var code = String.valueOf(conveyorService.deleteById(id));
-        return ResponseEntity.ok("Record " + code + " deleted from database.");
+        return ResponseEntity.ok("Record " + code + " deleted from system.");
     }
 
 }

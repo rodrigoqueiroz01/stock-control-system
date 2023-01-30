@@ -50,7 +50,7 @@ public class EntryController {
     public ResponseEntity<Object> deleteById(UUID id) {
         log.info("DELETE /v1/entry/" + id);
         var code = entryService.deleteById(id);
-        return ResponseEntity.accepted().body("Record " + code + " deleted from database.");
+        return ResponseEntity.accepted().body("Record " + code + " deleted from system.");
     }
 
 }

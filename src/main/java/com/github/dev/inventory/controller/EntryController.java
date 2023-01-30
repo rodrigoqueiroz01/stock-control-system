@@ -28,9 +28,9 @@ public class EntryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(entryService.save(entry));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Entry>> findAll() throws Exception {
-        log.info("GET /v1/entry/all");
+        log.info("GET /v1/entry");
         return ResponseEntity.ok().body(entryService.findAll());
     }
 

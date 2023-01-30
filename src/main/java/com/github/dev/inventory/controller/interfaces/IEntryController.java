@@ -221,7 +221,7 @@ public interface IEntryController {
                     )
             )
     })
-    @GetMapping("/all")
+    @GetMapping
     ResponseEntity<List<Entry>> findAll() throws Exception;
 
     @Operation(summary = "Locate a entry by id.")
